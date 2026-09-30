@@ -1,9 +1,8 @@
 # PyWall
 
-PyWall is a basic packet filter firewall built in Python. In the joyous spirit of learning how firewalls work at the fundamental networking level, I couldn’t think of a better first Python project to do than this. How hard can it be?
+PyWall is a basic packet filtering firewall built in Python. In the joyous spirit of learning how firewalls work at the fundamental networking level, I couldn’t think of a better first Python project to do than this. How hard can it be?
 
-
-
+&nbsp;
 ## How it works
 
 1. A packet comes in and hits the NIC, then the kernel. Netfilter, the kernel framework that allows the OS to allow/block/modify network packets, picks up the packet at the NF_INET_LOCAL_IN kernel hook
