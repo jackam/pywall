@@ -7,8 +7,7 @@ PyWall is a basic packet filtering firewall built in Python. In the joyous spiri
 
 1. A packet comes in and hits the NIC, then the kernel. Netfilter, the kernel framework that allows the OS to allow/block/modify network packets, picks up the packet at the NF_INET_LOCAL_IN kernel hook
 
-1. Netfilter hands the packet off to PyWall for Analysis
-PyWall unpacks the IP header to extract the protocol number. If the protocol number matches TCP or UDP, the packet is held for further analysis ,else it's let through so I don't break my kernel's network stack
+1. Netfilter hands the packet off to PyWall for Analysis. PyWall unpacks the IP header to extract the protocol number. If the protocol number matches TCP or UDP, the packet is held for further analysis ,else it's let through so I don't break the kernel's network stack
 
 1. PyWall unpacks the Transport layer header to extract the port number
 
