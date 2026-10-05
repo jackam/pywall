@@ -23,6 +23,7 @@ def packet_handler( payload ):
     # layer 3 parsing
     # get the first byte of the packet
     version_ihl = packet[0]
+
     # filter byte for lower 4 bits (lower=header length, upper=ip version)
     # an ihl of 5 is 5 words, 4 bytes per word 
     # 5 words * 4 bytes = 20 byte header length or 160 bits
@@ -31,10 +32,13 @@ def packet_handler( payload ):
     # extact protocol number (tcp=6, udp=17)
     protocol = packet[9]
 
+    # get trasport header port if protocol is tcp/udp
     if protocol in (6,17):
         dest_port_offset = ihl + 2
 
+        # verify the packet has a body which is longer than the transports header length
         if len(packet) >= dest_port_offset + 2:
+            # covert the raw binary port number to decimal
             dest_port = struct.unpack('!H', packet[dest_port_offset:dest_port_offset + 2])[0]
     
         if dest_port in ALLOWED_PORTS:
@@ -56,6 +60,7 @@ def main():
 
     try:
         print("[+] PyWall is running. Ctrl-C to stop")
+        nfqueue.run()
     except KeyboardInterrupt:
         print("\n[-] Flushing queue and shutting down PyWall")
 
@@ -63,4 +68,3 @@ if __name__ == "__main__":
     main()
 
 
-# bash: sudo iptables -I INPUT -j NFQUEUE --queue-num 101
